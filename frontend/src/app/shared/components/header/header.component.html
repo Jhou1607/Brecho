@@ -1,0 +1,39 @@
+<header class="app-header">
+  <div class="header-left-icons">
+    <button type="button" class="icon-button menu-icon" (click)="toggleMenu()">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+
+  <div class="logo-container" routerLink="/catalogo">
+    <img src="assets/logo-looplook.png" alt="LoopLook" class="logo-image">
+  </div>
+
+  <div class="header-right-icons">
+    <button type="button" class="icon-button search-icon" routerLink="/pesquisa">
+      <i class="fas fa-search"></i>
+    </button>
+    <button type="button" class="icon-button profile-icon" (click)="irParaPerfil()">
+      <i class="fas fa-user"></i>
+    </button>
+  </div>
+</header>
+
+<nav class="menu-lateral" [class.ativo]="menuAtivo" (click)="fecharMenu()">
+  <div class="menu-lateral-content" (click)="$event.stopPropagation()">
+    <ul>
+      <li><a routerLink="/perfil" (click)="fecharMenu()">Perfil</a></li>
+      <li><a routerLink="/armario" (click)="fecharMenu()">Armário</a></li>
+      <li><a routerLink="/favoritos" (click)="fecharMenu()">Lista de Favoritos</a></li>
+      <li><a routerLink="/montagem" (click)="fecharMenu()">Montagem de Looks</a></li>
+      <li><a routerLink="/sobre-nos" (click)="fecharMenu()">Sobre Nossos Serviços</a></li>
+      <li><a routerLink="/conta" (click)="fecharMenu()">Conta</a></li>
+    </ul>
+    <hr class="divisoria" />
+    <div class="ajuda-contato">
+      <p class="ajuda-titulo">Precisa de ajuda?</p>
+      <p class="ajuda-telefone"><a href="tel:+551499111111">+55 (14) 9911-1111</a></p>
+    </div>
+  </div>
+</nav>
+<div class="menu-overlay" [class.ativo]="menuAtivo" (click)="fecharMenu()"></div>

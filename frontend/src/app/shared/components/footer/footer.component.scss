@@ -1,0 +1,30 @@
+@use '../../../../styles' as styles;
+@use 'sass:math';
+@use 'sass:color';
+
+.app-footer {
+  text-align: center;
+  padding: styles.$brecho-spacing-medium 0;
+  background-color: styles.$brecho-footer-bg;
+  color: styles.$brecho-footer-text-color;
+  font-size: 0.875rem;
+  border-top: 1px solid color.adjust(styles.$brecho-page-bg, $lightness: -7%);
+  margin-top: auto;
+  height: var(#{styles.$footer-height});
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+
+  p {
+    margin: 0;
+  }
+
+  a {
+    color: styles.$brecho-primary-text;
+    font-weight: 500;
+    &:hover {
+      color: styles.$brecho-logo-color;
+    }
+  }
+}

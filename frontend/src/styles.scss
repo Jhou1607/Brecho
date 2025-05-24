@@ -1,0 +1,143 @@
+$brecho-page-bg: #fbf9f4;
+$brecho-content-bg: #fffefc;
+$brecho-dark-page-bg: #575757;
+$brecho-header-bg: #f7f2ec;
+$brecho-footer-bg: #ffffff;
+$brecho-primary-text: #385246;
+$brecho-secondary-text: #8c624d;
+$brecho-accent-color: #9bad9a;
+$brecho-button-text-color: #ffffff;
+$brecho-input-border: #d0c9c0;
+$brecho-input-bg: #ffffff;
+$brecho-link-color: #385246;
+$brecho-logo-color: #b5654c;
+$brecho-title-bar-bg: #385246;
+$brecho-title-bar-text: #e6d5b8;
+$brecho-placeholder-bg: #dde5db;
+$brecho-footer-text-color: #5a5a5a;
+$brecho-heart-icon-color: #6b4d38;
+$brecho-product-item-bg: #f0f0f0;
+
+$header-height: 70px; // Adicionado
+$footer-height: 60px; // Adicionado
+
+$brecho-font-primary: 'SuaFontePrincipal', sans-serif; // Substitua 'SuaFontePrincipal' pela fonte do Figma
+$brecho-font-headings: 'SuaFonteDeTitulos', serif; // Substitua 'SuaFonteDeTitulos'
+$brecho-font-logo: 'SuaFonteDoLogo', sans-serif; // Substitua 'SuaFonteDoLogo'
+
+$brecho-spacing-small: 8px;
+$brecho-spacing-medium: 16px;
+$brecho-spacing-large: 32px;
+$brecho-spacing-xlarge: 48px;
+
+:root {
+  --brecho-page-bg: #{$brecho-page-bg};
+  --brecho-content-bg: #{$brecho-content-bg};
+  --brecho-dark-page-bg: #{$brecho-dark-page-bg};
+  --brecho-header-bg: #{$brecho-header-bg};
+  --brecho-footer-bg: #{$brecho-footer-bg};
+  --brecho-primary-text: #{$brecho-primary-text};
+  --brecho-secondary-text: #{$brecho-secondary-text};
+  --brecho-accent-color: #{$brecho-accent-color};
+  --brecho-button-text-color: #{$brecho-button-text-color};
+  --brecho-input-border: #{$brecho-input-border};
+  --brecho-input-bg: #{$brecho-input-bg};
+  --brecho-link-color: #{$brecho-link-color};
+  --brecho-logo-color: #{$brecho-logo-color};
+  --brecho-title-bar-bg: #{$brecho-title-bar-bg};
+  --brecho-title-bar-text: #{$brecho-title-bar-text};
+  --brecho-placeholder-bg: #{$brecho-placeholder-bg};
+  --brecho-footer-text-color: #{$brecho-footer-text-color};
+  --brecho-heart-icon-color: #{$brecho-heart-icon-color};
+  --brecho-product-item-bg: #{$brecho-product-item-bg};
+  --header-height: #{$header-height}; // Usar interpolação se desejar
+  --footer-height: #{$footer-height}; // Usar interpolação se desejar
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: $brecho-font-primary;
+  color: $brecho-secondary-text;
+  background-color: $brecho-page-bg;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+router-outlet + * {
+  flex: 1;
+}
+
+input, textarea, button {
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $brecho-font-headings;
+  color: $brecho-primary-text;
+  margin-top: 0;
+}
+
+a {
+  color: $brecho-link-color;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content-area {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: $brecho-spacing-medium;
+}
+
+.form-graphic-layout {
+  display: flex;
+  width: 100%;
+  max-width: 900px; // Ajuste conforme necessário
+  margin: auto;
+  align-items: stretch;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  background-color: $brecho-content-bg;
+
+  .form-panel {
+    flex: 1.2; // Dar mais espaço ao formulário
+    padding: $brecho-spacing-large $brecho-spacing-xlarge;
+    background-color: $brecho-content-bg;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .graphic-panel {
+    flex: 0.8;
+    background-color: #cad2c5; // Cor do painel cinza/verde texturizado
+    // background-image: url('assets/your-texture.png'); // Adicionar textura se houver
+    background-size: cover;
+    background-position: center;
+    display: none; // Ocultar em telas menores
+
+    @media (min-width: 992px) { // Ponto de interrupção para exibir o painel gráfico
+      display: block;
+    }
+  }
+}

@@ -1,0 +1,91 @@
+<header class="search-header">
+  <div class="header-title">LoopLook</div>
+  <div class="close-icon" (click)="closeSearchPage()">
+    <fa-icon [icon]="faTimesSolid"></fa-icon>
+  </div>
+</header>
+
+<main class="search-main-content">
+  <div class="search-input-container">
+    <input
+      type="text"
+      class="search-input"
+      placeholder="Pesquisar por produto"
+      [(ngModel)]="searchTerm"
+      (ngModelChange)="search($event)" #searchInput />
+    <div class="search-actions">
+      <button
+        class="clear-search-button"
+        *ngIf="searchTerm"
+        (click)="clearSearch()"
+        title="Limpar pesquisa"
+      >
+        <fa-icon [icon]="faTimesSolid"></fa-icon>
+      </button>
+
+      <button
+        class="search-button"
+        (click)="search(searchTerm)"
+        title="Pesquisar"
+      >
+        <fa-icon [icon]="faSearchSolid"></fa-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="trending-searches">
+    <span class="trending-title">PESQUISAS EM ALTA</span>
+    <span
+      *ngFor="let term of trendingSearches"
+      class="trending-term"
+      (click)="clickTrendingSearch(term)"
+    >
+      {{ term }}
+    </span>
+  </div>
+
+  <div class="search-results-grid">
+    <div *ngIf="isLoading" class="loading-indicator" style="text-align: center; padding: 20px;">Buscando...</div>
+    <div *ngIf="error" class="error-message" style="text-align: center; padding: 20px; color: red;">{{ error }}</div>
+
+    <div class="product-grid" *ngIf="searchResults$ | async as response; else noResultsTemplate">
+      <div class="product-item" *ngFor="let product of response.data" (click)="goToProductDetail(product.id)">
+        <div class="product-image-container">
+          <img [ngSrc]="product.images && product.images.length > 0 ? getImagemUrl(product.images[0].url) : 'assets/placeholder.png'"
+               [alt]="product.nome_produto" loading="lazy" width="250" height="333">
+        </div>
+        <div class="product-info">
+          <div class="product-name">{{ product.nome_produto }}</div>
+          <div class="product-price">{{ product.preco | currency:'BRL':'symbol':'1.2-2':'pt' }}</div>
+        </div>
+        <div class="favorite-icon" (click)="$event.stopPropagation(); toggleFavorite(product.id, $event)">
+          <fa-icon [icon]="faHeartSolid"></fa-icon>
+        </div>
+      </div>
+
+      <div *ngIf="response.data.length === 0 && !isLoading && !error && !initialLoad" class="no-results">
+        Nenhum produto encontrado para "{{ searchTerm }}".
+      </div>
+
+      <div class="pagination" *ngIf="response.last_page > 1">
+        <button class="pagination-button" [disabled]="currentPage === 1" (click)="changePage(currentPage - 1)">
+          Anterior
+        </button>
+        <span class="pagination-info">Página {{ currentPage }} de {{ lastPage }}</span>
+        <button class="pagination-button" [disabled]="currentPage === lastPage" (click)="changePage(currentPage + 1)">
+          Próxima
+        </button>
+      </div>
+    </div>
+
+    <ng-template #noResultsTemplate>
+      <div *ngIf="!isLoading && !error && initialLoad" class="no-results">
+        Comece a digitar para pesquisar ou escolha uma das "Pesquisas em Alta".
+      </div>
+      <div *ngIf="!isLoading && !error && !initialLoad && !(searchResults$ | async)?.data?.length" class="no-results">
+      </div>
+    </ng-template>
+  </div>
+</main>
+
+<app-footer></app-footer>

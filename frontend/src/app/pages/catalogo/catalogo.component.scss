@@ -1,0 +1,67 @@
+@use '../../../styles' as styles;
+@use '../../../styles/product-grid' as productGrid;
+@use 'sass:math';
+@use 'sass:color';
+
+.catalogo-page-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: styles.$brecho-spacing-large styles.$brecho-spacing-medium;
+  background-color: styles.$brecho-page-bg;
+  flex: 1;
+}
+
+.catalogo-title {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: styles.$brecho-spacing-large;
+  color: styles.$brecho-secondary-text;
+  font-family: styles.$brecho-font-headings;
+  font-weight: 600;
+}
+
+.loading-indicator, .error-message, .no-results {
+  text-align: center;
+  padding: styles.$brecho-spacing-large;
+  color: styles.$brecho-secondary-text;
+}
+
+.error-message {
+  color: red;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: styles.$brecho-spacing-large;
+  gap: styles.$brecho-spacing-medium;
+
+  .pagination-button {
+    background-color: styles.$brecho-accent-color;
+    color: styles.$brecho-button-text-color;
+    border: none;
+    border-radius: 20px;
+    padding: styles.$brecho-spacing-small styles.$brecho-spacing-medium;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover:not(:disabled) {
+      background-color: color.adjust(styles.$brecho-accent-color, $lightness: -10%);
+    }
+
+    &:disabled {
+      background-color: color.adjust(styles.$brecho-accent-color, $lightness: 20%);
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+  }
+
+  .pagination-info {
+    font-size: 0.9rem;
+    color: styles.$brecho-secondary-text;
+    font-weight: 500;
+  }
+}

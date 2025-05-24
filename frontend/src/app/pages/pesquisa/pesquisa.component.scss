@@ -1,0 +1,186 @@
+@use '../../../styles' as styles;
+@use '../../../styles/product-grid' as productGrid; // Se product-grid.scss também usar @use
+@use 'sass:math';
+@use 'sass:color';
+
+:host {
+  display: block;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: styles.$brecho-page-bg;
+}
+
+.search-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: styles.$brecho-spacing-small styles.$brecho-spacing-medium;
+  border-bottom: 1px solid styles.$brecho-input-border; // Corrigido
+  background-color: styles.$brecho-header-bg;
+  color: styles.$brecho-primary-text;
+  font-weight: 600;
+  height: #{styles.$header-height}; // Corrigido
+  box-sizing: border-box;
+
+  .header-title {
+    flex-grow: 1;
+    font-size: 1.6rem;
+    color: styles.$brecho-logo-color;
+    font-weight: bold;
+    text-align: center;
+    font-family: styles.$brecho-font-logo;
+  }
+
+  .close-icon {
+    font-size: 1.5rem;
+    color: styles.$brecho-secondary-text;
+    cursor: pointer;
+    padding: math.div(styles.$brecho-spacing-small, 2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    fa-icon {
+      color: styles.$brecho-secondary-text;
+    }
+  }
+}
+
+.search-main-content {
+  max-width: 1000px;
+  width: 100%;
+  margin: styles.$brecho-spacing-medium auto styles.$brecho-spacing-large auto;
+  padding: 0 styles.$brecho-spacing-medium;
+  flex: 1;
+  box-sizing: border-box;
+}
+
+.search-input-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid styles.$brecho-input-border;
+  border-radius: 25px;
+  padding: 0 styles.$brecho-spacing-medium;
+  background-color: styles.$brecho-input-bg;
+  min-height: 45px;
+  margin-bottom: styles.$brecho-spacing-large;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 1rem;
+  padding: styles.$brecho-spacing-small 0;
+  color: styles.$brecho-primary-text;
+  &::placeholder {
+    color: color.adjust(styles.$brecho-secondary-text, $lightness: 15%);
+    opacity: 0.8;
+  }
+}
+
+.search-actions {
+  display: flex;
+  align-items: center;
+  gap: styles.$brecho-spacing-small;
+}
+
+.clear-search-button,
+.search-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: math.div(styles.$brecho-spacing-small, 2);
+  font-size: 1.2rem;
+  color: styles.$brecho-secondary-text;
+  transition: color 0.2s ease-in-out;
+
+  &:hover {
+    color: styles.$brecho-primary-text;
+  }
+}
+
+.trending-searches {
+  margin-bottom: styles.$brecho-spacing-large;
+  display: flex;
+  align-items: center;
+  gap: styles.$brecho-spacing-small;
+  flex-wrap: wrap;
+
+  .trending-title {
+    font-weight: bold;
+    color: styles.$brecho-secondary-text;
+    margin-right: styles.$brecho-spacing-small;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+  }
+
+  .trending-term {
+    font-size: 0.9rem;
+    color: styles.$brecho-primary-text;
+    border: 1px solid styles.$brecho-input-border;
+    border-radius: 15px;
+    padding: math.div(styles.$brecho-spacing-small, 2) styles.$brecho-spacing-medium;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    background-color: styles.$brecho-input-bg;
+
+    &:hover {
+      background-color: color.adjust(styles.$brecho-input-bg, $lightness: -5%);
+      border-color: styles.$brecho-accent-color;
+    }
+  }
+}
+
+.no-results,
+.loading-indicator,
+.error-message {
+  text-align: center;
+  font-size: 1.1rem;
+  color: styles.$brecho-secondary-text;
+  margin-top: styles.$brecho-spacing-large;
+  grid-column: 1 / -1; // Para product-grid
+}
+
+.error-message {
+  color: red;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: styles.$brecho-spacing-large;
+  gap: styles.$brecho-spacing-medium;
+
+  .pagination-button {
+    background-color: styles.$brecho-accent-color;
+    color: styles.$brecho-button-text-color;
+    border: none;
+    border-radius: 20px;
+    padding: styles.$brecho-spacing-small styles.$brecho-spacing-medium;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+
+    &:hover:not(:disabled) {
+      background-color: color.adjust(styles.$brecho-accent-color, $lightness: -10%);
+    }
+
+    &:disabled {
+      background-color: color.adjust(styles.$brecho-accent-color, $lightness: 20%);
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+  }
+
+  .pagination-info {
+    font-size: 0.9rem;
+    color: styles.$brecho-secondary-text;
+  }
+}

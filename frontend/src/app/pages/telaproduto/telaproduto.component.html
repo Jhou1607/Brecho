@@ -1,0 +1,71 @@
+<app-header></app-header>
+<div class="telaproduto-page-main-wrapper">
+  <div *ngIf="isLoading" class="loading-indicator-wrapper">Carregando...</div>
+  <div *ngIf="error && !isLoading && !(product$ | async)" class="error-indicator-wrapper">{{ error }}</div>
+
+  <ng-container *ngIf="(product$ | async) as product; else notFound">
+    <div *ngIf="!isLoading && !error" class="product-detail-content-box">
+      <div class="product-detail-card">
+        <div class="product-image-column">
+          <div class="main-product-image-container">
+            <img [src]="getImagemUrl(selectedImage)"
+                 [alt]="product.nome_produto || 'Imagem do Produto'">
+          </div>
+          <div class="thumbnail-list" *ngIf="product.images && product.images.length > 1">
+            <img *ngFor="let imageObj of product.images; let i = index"
+                 [src]="getImagemUrl(imageObj.url)"
+                 [alt]="product.nome_produto + ' - Vista ' + (i + 1)"
+                 class="thumbnail-item"
+                 [class.selected]="getImagemUrl(imageObj.url) === selectedImage"
+                 (click)="selectImage(imageObj.url)">
+          </div>
+        </div>
+
+        <div class="product-info-column">
+          <h1 class="product-title">{{ product.nome_produto }}</h1>
+          <div class="product-price-display" *ngIf="product.preco">
+            {{ product.preco | currency:'BRL':'symbol':'1.2-2' }}
+          </div>
+          <div class="product-attributes">
+            <div class="attribute-item" *ngIf="product.marca">
+              <span class="attribute-label">Marca</span>
+              <span class="attribute-value">{{ product.marca }}</span>
+            </div>
+            <div class="attribute-item" *ngIf="product.modelo">
+              <span class="attribute-label">Modelo</span>
+              <span class="attribute-value">{{ product.modelo }}</span>
+            </div>
+            <div class="attribute-item" *ngIf="product.estacao">
+              <span class="attribute-label">Estação</span>
+              <span class="attribute-value">{{ product.estacao }}</span>
+            </div>
+            <div class="attribute-item" *ngIf="product.categoria">
+              <span class="attribute-label">Categoria</span>
+              <span class="attribute-value">{{ product.categoria }}</span>
+            </div>
+            <div class="attribute-item" *ngIf="product.cor">
+              <span class="attribute-label">Cor</span>
+              <span class="attribute-value">{{ product.cor }}</span>
+            </div>
+            <div class="attribute-item" *ngIf="product.numeracao">
+              <span class="attribute-label">Numeração/Tamanho</span>
+              <span class="attribute-value">{{ product.numeracao }}</span>
+            </div>
+            <div class="attribute-item" *ngIf="product.estado_conservacao">
+              <span class="attribute-label">Estado de Conservação</span>
+              <span class="attribute-value">{{ product.estado_conservacao }}</span>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-action" (click)="addToFavorites(product)">Adicionar à Favoritos</button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #notFound>
+    <div *ngIf="!isLoading && !(product$ | async) && !error" class="not-found-message">
+      Produto não encontrado.
+    </div>
+  </ng-template>
+</div>
+<app-footer></app-footer>
